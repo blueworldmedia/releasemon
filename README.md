@@ -6,7 +6,12 @@ Supervisor plugin to watch a build version file and restart programs on update
 
 Releasemon is designed to actively monitor a known version file for changes, and if an update occurs restart supervisor managed programs. 
 
-It was inspired by Tim Schumacher's superfsmon script, but is designed for automatically reload changes in a hands-off production environment and includes some addtional functionality.
+It was specifically written to restart Laravel queues on deployment when *the contents* of a known version or timestamp file has changed. 
+
+Originally inspired by Tim Schumacher's superfsmon script, releasemon is optimized to restart applications only when a specific file is seen to have updates made to its contents. This is more resource friendly as it won't keep file notification handles open for every file in a given directory (e.g all your repository source files) which can cause inotify limits to be hit on large filesystems. Notable, simply updating the timestamp (e.g. through an rsync) will NOT force restart, meaning you can limit restarts based on explicit file updates and not through unreleated filesystem changes.
+
+realeasmon also adds some new functionality such as random offsets on restart times (which can be useful for distributing load spikes).
+
 
 Specifically, releasemon will:
 
@@ -26,14 +31,14 @@ Releasemon uses Supervisor's XML-RPC API. Your
 If you are able to control your Supervisor instance with `supervisorctl`, you
 have already have this coonigured.
 
-To restart your celery workers on changes in the `/app/devops` directory your
-`supervisord.conf` could look like this.
+To restart your Laravel worker when the contents of `/appdir/.version` is updated,
+your `supervisord.conf` might look like this.
 
-    [program:celery]
-    command=celery -A devops.celery worker --loglevel=INFO --concurrency=10
+    [program:laravel-worker]
+    command=php /home/forge/app.com/artisan queue:work sqs --sleep=3 --tries=3 --max-time=3600
 
     [program:releasemon]
-    command=releasemon /appdir/.version celery
+    command=releasemon /appdir/.version laravel-worker
 
 You can use multiple instances of Releasemon to control different programs.
 
@@ -115,7 +120,7 @@ Disable functionality using an environment variable:
 ## Inspired by
 
 Superfsmon by Tim Schumacher
-https://github.com/timakro/releasemon
+https://github.com/timakro/superfsmon
 
 ## License
 
