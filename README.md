@@ -103,7 +103,7 @@ Restart all Supervisor programs in the `workers` group after 10 seconds:
 
 Restart all Supervisor programs in the `workers` group after a random delay between 0 and 60 seconds:
 
-    command=releasemon --random-delay 10 -g workers /appdir/.version
+    command=releasemon --random-delay 60 -g workers /appdir/.version
 
 
 Disable functionality using an environment variable:
