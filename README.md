@@ -39,22 +39,9 @@ You can use multiple instances of Releasemon to control different programs.
 
 ## Installation
 
-### Python 2
+### Python 2 and 3
 
     pip install releasemon
-
-### Python 3
-
-This script requires Supervisor which [is not yet available for Python
-3][Supervisor Python 3]. To be able to install releasemon without errors you
-need to install the development version of Supervisor from the GitHub
-repository first. The development version may not work reliably, don't use it
-in production.
-
-    pip install git+https://github.com/Supervisor/supervisor
-    pip install releasemon
-
-[Supervisor Python 3]: https://github.com/Supervisor/supervisor/issues/510
 
 
 ## Command Line Arguments
