@@ -6,7 +6,7 @@ Supervisor plugin to watch a build version file and restart programs on update
 
 Releasemon is designed to actively monitor a known version file for changes, and if an update occurs restart supervisor managed programs. 
 
-It was specifically written to restart Laravel queues on deployment when *the contents* of a known version or timestamp file has changed. 
+It was specifically written to restart Laravel queues on deployment when **the contents** of a known version or timestamp file has changed. 
 
 Originally inspired by Tim Schumacher's superfsmon script, releasemon is optimized to restart applications only when a specific file is seen to have updates made to its contents. This is more resource friendly as it won't keep file notification handles open for every file in a given directory (e.g all your repository source files) which can cause inotify limits to be hit on large filesystems. Notable, simply updating the timestamp (e.g. through an rsync) will NOT force restart, meaning you can limit restarts based on explicit file updates and not through unreleated filesystem changes.
 
