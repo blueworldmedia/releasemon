@@ -89,25 +89,36 @@ in production.
 
 ## Examples
 
+The following examples assume you make updates to the file `/appdir/.version` on each release:
+
 Restart Supervisor program 'app':
 
+    [program:releasemon]
     command=releasemon /appdir/.version app
 
 Restart Supervisor program 'app' then run a post-update script:
 
+    [program:releasemon]
     command=releasemon --pre-restart "echo 'POST ROTATE SCRIPT'" /appdir/.version app
 
 Restart all Supervisor programs in the `workers` group after 10 seconds:
 
+    [program:releasemon]
     command=releasemon --fixed-delay 10 -g workers /appdir/.version
 
 Restart all Supervisor programs in the `workers` group after a random delay between 0 and 60 seconds:
 
+    [program:releasemon]
     command=releasemon --random-delay 60 -g workers /appdir/.version
 
+Restart all Supervisor programs
+
+    [program:releasemon]
+    command=releasemon -a /appdir/.version app
 
 Disable functionality using an environment variable:
 
+    [program:releasemon]
     command=releasemon /appdir/.version app1 -e %(ENV_CELERY_AUTORELOAD)s
 
 ## Known Issues
