@@ -32,7 +32,7 @@ To restart your celery workers on changes in the `/app/devops` directory your
     [program:celery]
     command=celery -A devops.celery worker --loglevel=INFO --concurrency=10
 
-    [program:superfsmon]
+    [program:releasemon]
     command=releasemon /appdir/.version celery
 
 You can use multiple instances of Releasemon to control different programs.
@@ -41,18 +41,18 @@ You can use multiple instances of Releasemon to control different programs.
 
 ### Python 2
 
-    pip install superfsmon
+    pip install releasemon
 
 ### Python 3
 
 This script requires Supervisor which [is not yet available for Python
-3][Supervisor Python 3]. To be able to install superfsmon without errors you
+3][Supervisor Python 3]. To be able to install releasemon without errors you
 need to install the development version of Supervisor from the GitHub
 repository first. The development version may not work reliably, don't use it
 in production.
 
     pip install git+https://github.com/Supervisor/supervisor
-    pip install superfsmon
+    pip install releasemon
 
 [Supervisor Python 3]: https://github.com/Supervisor/supervisor/issues/510
 
@@ -117,7 +117,7 @@ Disable functionality using an environment variable:
 ## Inspired by
 
 Superfsmon by Tim Schumacher
-https://github.com/timakro/superfsmon
+https://github.com/timakro/releasemon
 
 ## License
 
